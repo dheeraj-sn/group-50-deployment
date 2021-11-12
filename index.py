@@ -56,7 +56,7 @@ class MLP(nn.Module):
         return y
 
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cpu')
 mlp_model = torch.load(r'.\model\mlp.pt')
 mlp_model = mlp_model.to(device)
 class_names = ['angry', 'disgusted', 'happy', 'sad', 'surprised']
