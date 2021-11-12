@@ -4,6 +4,7 @@ from multipage import MultiPage
 from inference import MLP
 import inference
 import plotlytry
+import tb
 
 # Create an instance of the app 
 app = MultiPage()
@@ -14,6 +15,7 @@ st.title("CS5242 GROUP-50 Deployment")
 # Add all your applications (pages) here
 app.add_page("Inference page", inference.app)
 app.add_page("Plot Try Page", plotlytry.app)
+app.add_page("Tensorboard",tb.app)
 
 # The main app
 app.run()
