@@ -55,9 +55,10 @@ class MLP(nn.Module):
         
         return y
 
-
+current_path = os.path.abspath("./")
 device = torch.device('cpu')
-mlp_model = torch.load(r'.\model\mlp.pt')
+mlp_model_path = current_path + "/model/mlp.pt"
+mlp_model = torch.load(mlp_model_path,map_location=device)
 mlp_model = mlp_model.to(device)
 class_names = ['angry', 'disgusted', 'happy', 'sad', 'surprised']
 img_size = (32, 32)
@@ -80,19 +81,17 @@ if uploaded_file is not None:
     print("0")
 else:  
     def user_input_features():
-        data_dir = pathlib.Path('model/images/')
+        data_dir = pathlib.Path(current_path + '/model/images/')
         files = []
         for file in os.listdir(data_dir):
-            files.append('model/images/' + file)
+            files.append(current_path + "/model/images/" + file)
         island = st.sidebar.selectbox('Images',files)
         data = {'images': island}     
         return data
     image_location_and_name=user_input_features()
-
-    st.image(image_location_and_name['images'])
+    st.image(str(image_location_and_name['images']))
 
     img = PIL.Image.open(str(image_location_and_name['images']))
-    
     img_array = data_transforms(img)
     img_array = img_array.unsqueeze(0)
     img_array = img_array.to(device)
@@ -104,12 +103,12 @@ else:
     """.format(class_names[torch.argmax(score[0])], 100*score[0,torch.argmax(score[0])])
     st.write(result)
 
-if uploaded_file is not None:    
+if uploaded_file is not None:
     ts = datetime.datetime.now().timestamp()
     file_name=str(ts)+'.png'
-    image_location_and_name='tempDir/'+str(ts)+'.png'
+    image_location_and_name=current_path+ '/tempDir/'+str(ts)+'.png'
     image_file=pathlib.Path(image_location_and_name)
-    with open(os.path.join("tempDir/",file_name),"wb") as f:
+    with open(os.path.join(current_path+"/tempDir/",file_name),"wb") as f:
          f.write(uploaded_file.getbuffer())
 
     img = PIL.Image.open(str(image_location_and_name))
@@ -124,8 +123,9 @@ if uploaded_file is not None:
     result="""
     MLP model says that face is {}, with {:.2f} percent confidence.
     """.format(class_names[torch.argmax(score[0])], 100*score[0,torch.argmax(score[0])])
-    st.subheader    (result)
+    st.subheader(result)
     st.image(uploaded_file, channels="BGR")
+    uploaded_file.seek(0)
     
 else:
     st.write('Upload image file from the left to check. Currently using example images.')
