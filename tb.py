@@ -1,4 +1,5 @@
 from streamlit_tensorboard import st_tensorboard
+import tensorflow
 import os
 
 def app():
