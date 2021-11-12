@@ -86,13 +86,19 @@ def app():
             files = []
             for file in os.listdir(data_dir):
                 files.append(current_path + "/model/images/" + file)
-            island = st.sidebar.selectbox('Images',files)
+            #island = st.sidebar.selectbox('Images',files)
+            
+            island = st.sidebar.selectbox('Images', 
+            files, format_func=lambda x:x.split('/')[-1])
+            
+            
             data = {'images': island}     
             return data
         image_location_and_name=user_input_features()
-        st.image(str(image_location_and_name['images']))
+        #st.image(str(image_location_and_name['images']))
 
         img = PIL.Image.open(str(image_location_and_name['images']))
+        st.image(img, caption="Test Image")
         img_array = data_transforms(img)
         img_array = img_array.unsqueeze(0)
         img_array = img_array.to(device)
