@@ -55,6 +55,77 @@ class MLP(nn.Module):
         
         return y
 
+class CNN(nn.Module):
+    def __init__(self,output_size):
+        super(CNN, self).__init__()
+        # block 1:         3 x 32 x 32 --> 64 x 16 x 16        
+        self.conv1a = nn.Conv2d(3,   64,  kernel_size=3, padding=1 )
+        self.batchnorm1a = nn.BatchNorm2d(64)
+        self.conv1b = nn.Conv2d(64,  64,  kernel_size=3, padding=1 )
+        self.batchnorm1b = nn.BatchNorm2d(64)
+        self.pool1  = nn.MaxPool2d(2,2)
+        # block 2:         64 x 16 x 16 --> 128 x 8 x 8
+        self.conv2a = nn.Conv2d(64,  128, kernel_size=3, padding=1 )
+        self.batchnorm2a = nn.BatchNorm2d(128)
+        self.conv2b = nn.Conv2d(128, 128, kernel_size=3, padding=1 )
+        self.batchnorm2b = nn.BatchNorm2d(128)
+        self.pool2  = nn.MaxPool2d(2,2)
+        # block 3:         128 x 8 x 8 --> 256 x 4 x 4        
+#         self.conv3a = nn.Conv2d(128, 256, kernel_size=3, padding=1 )
+#         self.conv3b = nn.Conv2d(256, 256, kernel_size=3, padding=1 )
+#         self.pool3  = nn.MaxPool2d(2,2)
+        #block 4:          256 x 4 x 4 --> 512 x 2 x 2
+#         self.conv4a = nn.Conv2d(256, 512, kernel_size=3, padding=1 )
+#         self.pool4  = nn.MaxPool2d(2,2)
+        # linear layers:   512 x 2 x 2 --> 2048 --> 4096 --> 4096 --> 5
+        self.linear1 = nn.Linear(8192, 4096)
+        self.linear2 = nn.Linear(4096,2048)
+        self.linear3 = nn.Linear(2048, output_size)
+        self.dropout1 = nn.Dropout(0.50)
+        self.dropout2 = nn.Dropout(0.50)
+        
+
+    def forward(self, x):
+        # block 1:         3 x 32 x 32 --> 64 x 16 x 16
+        x = self.conv1a(x)
+        x = self.batchnorm1a(x)
+        x = torch.relu(x)
+        x = self.conv1b(x)
+        x = self.batchnorm1b(x)
+        x = torch.relu(x)
+        x = self.pool1(x)
+        # block 2:         64 x 16 x 16 --> 128 x 8 x 8
+        x = self.conv2a(x)
+        x = self.batchnorm2a(x)
+        x = torch.relu(x)
+        x = self.conv2b(x)
+        x = self.batchnorm2b(x)
+        x = torch.relu(x)
+        x = self.pool2(x)
+#         block 3:         128 x 8 x 8 --> 256 x 4 x 4
+#         x = self.conv3a(x)
+#         x = torch.relu(x)
+#         x = self.conv3b(x)
+#         x = torch.relu(x)
+#         x = self.pool3(x)
+#         #block 4:          256 x 4 x 4 --> 512 x 2 x 2
+#         x = self.conv4a(x)
+#         x = torch.relu(x)
+#         x = self.pool4(x)
+        # linear layers:   512 x 2 x 2 --> 2048 --> 4096 --> 4096 --> 10
+        x = x.view(-1, 8192)
+        x = self.linear1(x)
+        x = self.dropout1(x)
+        x = torch.relu(x)
+        x = self.linear2(x)
+        x = self.dropout2(x)
+        x = torch.relu(x)
+        x = self.linear3(x) 
+        #x=torch.softmax(x,dim=-1)
+        
+        return x
+
+
 def app():
     current_path = os.path.abspath("./")
     device = torch.device('cpu')

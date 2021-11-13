@@ -1,7 +1,7 @@
 import streamlit as st
 
 from multipage import MultiPage
-from inference import MLP
+from inference import MLP, CNN
 import inference
 import plotlytry
 import tb
