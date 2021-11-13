@@ -61,6 +61,12 @@ def app():
     mlp_model_path = current_path + "/model/mlp.pt"
     mlp_model = torch.load(mlp_model_path,map_location=device)
     mlp_model = mlp_model.to(device)
+    
+    cnn_model_path = current_path + "/model/cnn.pt"
+    cnn_model = torch.load(cnn_model_path,map_location=device)
+    cnn_model = cnn_model.to(device)
+    
+    
     class_names = ['angry', 'disgusted', 'happy', 'sad', 'surprised']
     img_size = (32, 32)
     train_mean = 0.4710924029350281
@@ -109,6 +115,13 @@ def app():
         MLP model says that face is {}, with {:.2f} percent confidence.
         """.format(class_names[torch.argmax(score[0])], 100*score[0,torch.argmax(score[0])])
         st.write(result)
+        
+        score = cnn_model.forward( (img_array-train_mean)/train_std )
+        score = torch.softmax(score, dim=1)
+        result="""
+        CNN model says that face is {}, with {:.2f} percent confidence.
+        """.format(class_names[torch.argmax(score[0])], 100*score[0,torch.argmax(score[0])])
+        st.write(result)
 
     if uploaded_file is not None:
         ts = datetime.datetime.now().timestamp()
@@ -131,6 +144,14 @@ def app():
         MLP model says that face is {}, with {:.2f} percent confidence.
         """.format(class_names[torch.argmax(score[0])], 100*score[0,torch.argmax(score[0])])
         st.subheader(result)
+        
+        score = cnn_model.forward( (img_array-train_mean)/train_std )
+        score = torch.softmax(score, dim=1)
+        result="""
+        CNN model says that face is {}, with {:.2f} percent confidence.
+        """.format(class_names[torch.argmax(score[0])], 100*score[0,torch.argmax(score[0])])
+        st.subheader(result)
+        
         st.image(uploaded_file, channels="BGR")
         uploaded_file.seek(0)
         
