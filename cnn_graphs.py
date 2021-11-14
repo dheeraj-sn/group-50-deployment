@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 
 def app():
-    metrics = pd.read_csv("./csv/mlp.csv")   
+    metrics = pd.read_csv("./csv/cnn.csv")   
     plt.rcParams['axes.grid'] = True
     plt.rcParams['axes.labelsize'] = 20
     plt.rcParams['xtick.labelsize'] = 15
@@ -18,7 +18,7 @@ def app():
     
     st.subheader(
         """
-        This is a place where you can get the interactive loss plots for MLP.
+        This is a place where you can get the interactive loss plots for CNN.
         """
     )
 
@@ -32,8 +32,8 @@ def app():
         """
         -----
         
-        - MLP training and test loss plots are presented here. Hover on them to get the loss for each epoch.
-        - MLP training and test accuracy plots are presented here. Hover on them to get the accuracy for each epoch.
+        - CNN training and test loss plots are presented here. Hover on them to get the loss for each epoch.
+        - CNN training and test accuracy plots are presented here. Hover on them to get the accuracy for each epoch.
         - Choose options from the top right of each plot to get more information
         -----
         """

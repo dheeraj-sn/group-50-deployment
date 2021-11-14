@@ -4,6 +4,9 @@ from multipage import MultiPage
 from inference import MLP, CNN
 import inference
 import mlp_graphs
+import cnn_graphs
+import ann_graphs
+import resnet_graphs
 import tb
 import train_acc
 import test_acc
@@ -37,6 +40,9 @@ def introduction():
 introduction()
 app.add_page("Using Model for Prediction", inference.app)
 app.add_page("MLP Results", mlp_graphs.app)
+app.add_page("CNN Results", cnn_graphs.app)
+app.add_page("ANN Results", ann_graphs.app)
+app.add_page("RESNET Results", resnet_graphs.app)
 app.add_page("Training Accuracy Comparison", train_acc.app)
 app.add_page("Test Accuracy Comparison", test_acc.app)
 app.add_page("Tensorboard",tb.app)
