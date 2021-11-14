@@ -152,7 +152,20 @@ def app():
                 </style>
                 """
     st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+    st.subheader(
+        """
+        This is a place where you can test out or model for predections.
+        """
+    )
 
+    st.markdown(
+        """
+    - 🗂️ Choose another app from the sidebar in the left in case you want to switch
+    - ⚙️ Choose an example image from the left to check prediction
+    - 🩺 Upload you own image from the left if required. Make sure the image has only 1 person and is focussed on the face.
+    -----
+    """
+    )
     # Collects user input features into dataframe
     uploaded_file = st.sidebar.file_uploader("UPLOAD IMAGE FILE", type=["png","jpg","svg"])
     if uploaded_file is not None:

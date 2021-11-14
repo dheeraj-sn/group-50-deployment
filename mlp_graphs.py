@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 
 def app():
-    metrics = pd.read_csv("./mlp.csv")   
+    metrics = pd.read_csv("./csv/mlp.csv")   
     plt.rcParams['axes.grid'] = True
     plt.rcParams['axes.labelsize'] = 20
     plt.rcParams['xtick.labelsize'] = 15
