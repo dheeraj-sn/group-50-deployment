@@ -198,14 +198,14 @@ def app():
         result="""
         MLP model says that face is {}, with {:.2f} percent confidence.
         """.format(class_names[torch.argmax(score[0])], 100*score[0,torch.argmax(score[0])])
-        st.write(result)
+        st.subheader(result)
         
         score = cnn_model.forward( (img_array-train_mean)/train_std )
         score = torch.softmax(score, dim=1)
         result="""
         CNN model says that face is {}, with {:.2f} percent confidence.
         """.format(class_names[torch.argmax(score[0])], 100*score[0,torch.argmax(score[0])])
-        st.write(result)
+        st.subheader(result)
 
     if uploaded_file is not None:
         ts = datetime.datetime.now().timestamp()

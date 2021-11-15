@@ -31,7 +31,7 @@ def introduction():
     - 🗂️ Choose an app from the sidebar in the left
     - ⚙️ Scroll through the app page and checkout the plots
     - 📉 Hover over the plots to get interactive data
-    - 🩺 Change the size, precision and other aspects of the plots using option present beside each plot.
+    - 🩺 Change the size, precision and other aspects of the plots using options present beside each plot.
     -----
     """
     )
@@ -45,7 +45,7 @@ app.add_page("ANN Results", ann_graphs.app)
 app.add_page("RESNET Results", resnet_graphs.app)
 app.add_page("Training Accuracy Comparison", train_acc.app)
 app.add_page("Test Accuracy Comparison", test_acc.app)
-app.add_page("Tensorboard",tb.app)
+#app.add_page("Tensorboard",tb.app)
 
 # The main app
 app.run()

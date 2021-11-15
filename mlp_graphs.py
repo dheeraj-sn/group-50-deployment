@@ -23,7 +23,7 @@ def app():
     
     st.subheader(
         """
-        This is a place where you can get the interactive loss plots for MLP.
+        This is a place where you can get the interactive plots for MLP.
         """
     )
 
