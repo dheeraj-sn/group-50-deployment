@@ -6,22 +6,19 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
+import seaborn as sns
+
 def app():
     mlp_metrics = pd.read_csv("./csv/mlp.csv")
     cnn_metrics = pd.read_csv("./csv/cnn.csv")
     ann_metrics = pd.read_csv("./csv/ann.csv")
     resnet_metrics = pd.read_csv("./csv/resnet.csv")
 
-    mlp_test_metrics = mlp_metrics[mlp_metrics["kind"]=="test"]
-    cnn_test_metrics = cnn_metrics[cnn_metrics["kind"]=="test"]
-    ann_test_metrics = ann_metrics[ann_metrics["kind"]=="test"]
-    resnet_test_metrics = resnet_metrics[resnet_metrics["kind"]=="test"]
-
     mlp_train_metrics = mlp_metrics[mlp_metrics["kind"]=="train"]
     cnn_train_metrics = cnn_metrics[cnn_metrics["kind"]=="train"]
     ann_train_metrics = ann_metrics[ann_metrics["kind"]=="train"]
     resnet_train_metrics = resnet_metrics[resnet_metrics["kind"]=="train"]
-    
+    metrics_train = [mlp_train_metrics,cnn_train_metrics,ann_train_metrics,resnet_train_metrics]
     
     fig_train = make_subplots(rows=2, cols=2, specs=[[{'type' : 'indicator'}, {'type' : 'indicator'}], [{'type' : 'indicator'},{'type' : 'indicator'}]])
     fig_train.add_trace(go.Indicator(
@@ -69,7 +66,7 @@ def app():
     
     st.subheader(
         """
-        This is a place where we have presented the training accuracy comparison of different models.
+        This is a place where we have presented the training accuracy and loss comparison of different models.
         """
     )
 
@@ -81,20 +78,85 @@ def app():
     #-----
     #"""
     #)
-    
-    
+        
     col1, col2 = st.columns((1, 1))
     with col1:
         st.plotly_chart(fig_train, use_container_width=True)
+        
+        
+        """
+        colors = [colormap(i) for i in np.linspace(0, 1,5)]
+        plt.rcParams['axes.grid'] = True
+        plt.rcParams['axes.labelsize'] = 20
+        plt.rcParams['xtick.labelsize'] = 15
+        plt.rcParams['ytick.labelsize'] = 15
+        plt.rcParams['legend.fontsize'] = 15
+        l = ["MLP","CNN", "ANN", "RESNET"]
+        fig, axs = plt.subplots(ncols=1,figsize=(10,8))
+        for i in range(len(metrics_train)):
+            sns.lineplot(x="epoch",y="loss",data=metrics_train[i],color=colors[i], label=l[i])
+        axs.set_xlim([0,300])
+        
+        st.pyplot(fig=fig)
+        """
+        
     with col2:
-        st.markdown(
+        f1 = go.Figure()
+        
+        colormap = plt.cm.gist_ncar 
+        colors = [colormap(i) for i in np.linspace(0, 1,5)]
+        l = ["MLP","CNN", "ANN", "RESNET"]
+        for i in range(len(metrics_train)):
+            f1.add_trace(go.Scatter(x=metrics_train[i]["epoch"], y=metrics_train[i]["accuracy"],mode='lines',name=l[i]))
+        
+        f1.update_layout(xaxis_range=[0,300], width=600, height=400, title="Accuracy Comparison",xaxis_title="Epoch", yaxis_title="Accuracy", legend_title="Model",
+            font=dict(
+                size=18,
+                color="RebeccaPurple"
+            ))        
+           
+        st.plotly_chart(f1,use_container_width=True)
+        
+        
+        
+        f2 = go.Figure()
+        for i in range(len(metrics_train)):
+            f2.add_trace(go.Scatter(x=metrics_train[i]["epoch"], y=metrics_train[i]["loss"],mode='lines',name=l[i]))
+        
+        f2.update_layout(xaxis_range=[0,300], width=600, height=400, title="Training Loss Comparison",xaxis_title="Epoch", yaxis_title="Loss", legend_title="Model",
+            font=dict(
+                size=18,
+                color="RebeccaPurple"
+            ))        
+           
+        st.plotly_chart(f2,use_container_width=True)
+        
+        """
+        colormap = plt.cm.gist_ncar 
+        colors = [colormap(i) for i in np.linspace(0, 1,5)]
+        plt.rcParams['axes.grid'] = True
+        plt.rcParams['axes.labelsize'] = 20
+        plt.rcParams['xtick.labelsize'] = 15
+        plt.rcParams['ytick.labelsize'] = 15
+        plt.rcParams['legend.fontsize'] = 15
+        l = ["MLP","CNN", "ANN", "RESNET"]
+        fig, axs = plt.subplots(ncols=1,figsize=(10,8))
+        for i in range(len(metrics_train)):
+            sns.lineplot(x="epoch",y="accuracy",data=metrics_train[i],color=colors[i], label=l[i])
+        axs.set_xlim([0,300])
+        
+        st.pyplot(fig=fig)
+        """
+    st.markdown(
             """
             -----
-            
+
             - CNN and resnet have very high training accuracy
             - ANN has the lowest accuracy
             - MLP has an intermediate accuracy
-        
+
             -----
             """
         )
+    
+        

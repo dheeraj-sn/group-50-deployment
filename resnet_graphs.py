@@ -15,7 +15,7 @@ def app():
     plt.rcParams['ytick.labelsize'] = 15
     plt.rcParams['legend.fontsize'] = 15
         
-    fig = px.line(metrics, x="epoch", y="loss", color='kind', title="Loss Plot")
+    f1 = px.line(metrics, x="epoch", y="loss", color='kind', title="Loss Plot")
     fig1 = px.line(metrics, x="epoch", y="accuracy", color='kind', title="Accuracy Plot")
     
     st.subheader(
@@ -26,7 +26,7 @@ def app():
 
     col1, col2 = st.columns((1, 1))
     with col1:
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(f1, use_container_width=True)
         st.plotly_chart(fig1, use_container_width=True)
     
     with col2:

@@ -43,8 +43,8 @@ app.add_page("MLP Results", mlp_graphs.app)
 app.add_page("CNN Results", cnn_graphs.app)
 app.add_page("ANN Results", ann_graphs.app)
 app.add_page("RESNET Results", resnet_graphs.app)
-app.add_page("Training Accuracy Comparison", train_acc.app)
-app.add_page("Test Accuracy Comparison", test_acc.app)
+app.add_page("Training Accuracy and Loss Comparison", train_acc.app)
+app.add_page("Test Accuracy and Loss Comparison", test_acc.app)
 #app.add_page("Tensorboard",tb.app)
 
 # The main app
