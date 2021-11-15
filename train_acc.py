@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
-import seaborn as sns
 
 def app():
     mlp_metrics = pd.read_csv("./csv/mlp.csv")

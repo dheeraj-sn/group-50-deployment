@@ -98,7 +98,6 @@ def app():
         
         f2.update_layout(xaxis_range=[0,300], width=600, height=400, title="Test Loss Comparison",xaxis_title="Epoch", yaxis_title="Loss", legend_title="Model",
             font=dict(
-                #family="Courier New, monospace",
                 size=18,
                 color="RebeccaPurple"
             ))        

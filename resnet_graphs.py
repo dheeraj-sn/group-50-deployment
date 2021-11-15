@@ -17,7 +17,14 @@ def app():
         
     f1 = px.line(metrics, x="epoch", y="loss", color='kind', title="Loss Plot")
     fig1 = px.line(metrics, x="epoch", y="accuracy", color='kind', title="Accuracy Plot")
+    f1.update_layout(width=600, height=450,font=dict(
+                size=18,
+                color="RebeccaPurple"))
     
+    fig1.update_layout(width=600, height=450,font=dict(
+                size=18,
+                color="RebeccaPurple"
+            ))
     st.subheader(
         """
         This is a place where you can get the interactive plots for RESNET.
