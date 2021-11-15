@@ -4,10 +4,15 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import plotly.express as px
+import os
+import itertools
+
+
+
 
 def app():
     metrics = pd.read_csv("./csv/mlp.csv")   
-    plt.rcParams['axes.grid'] = True
+    #plt.rcParams['axes.grid'] = True
     plt.rcParams['axes.labelsize'] = 20
     plt.rcParams['xtick.labelsize'] = 15
     plt.rcParams['ytick.labelsize'] = 15
@@ -38,3 +43,33 @@ def app():
         -----
         """
         )
+        
+        
+        mlp_cm = np.load("./npdata/mlp_cm.npy")
+        cm = mlp_cm
+        classes = ["angry","disgusted","happy","sad","surprised"]
+        normalize=False
+        cmap=plt.cm.Blues
+        title='Confusion matrix'
+        
+        cm = cm.astype(int)
+        fig, ax = plt.subplots()
+        aximg = ax.imshow(cm, interpolation='nearest', cmap=cmap)
+        ax.set_title(title)
+        fig.colorbar(aximg)
+        tick_marks = np.arange(len(classes))
+        ax.set_xticks(tick_marks, classes)
+        ax.set_yticks(tick_marks, classes)
+        #plt.setp(ax.get_xticklabels())
+        
+        fmt = '.2f' if normalize else 'd'
+        thresh = cm.max() / 2.
+        for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+            ax.text(j, i, format(cm[i, j], fmt), horizontalalignment="center", color="white" if cm[i, j] > thresh else "black")
+        
+        #ax.tight_layout()
+        ax.set_ylabel('True label')
+        ax.set_xlabel('Predicted label')
+
+        #plt.figure(figsize=(10,10))
+        st.pyplot(fig=fig)
