@@ -26,7 +26,7 @@ def introduction():
     st.title("**Welcome to CS5242 GROUP-50 Deployment 🧪**")
     st.subheader(
         """
-        This is a place where you can get all our interactive plot and results.
+        This is a place where you can get all our interactive plots and results.
         """
     )
 
