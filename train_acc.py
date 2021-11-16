@@ -150,9 +150,10 @@ def app():
             """
             -----
 
-            - CNN and resnet have very high training accuracy
-            - ANN has the lowest accuracy
-            - MLP has an intermediate accuracy
+            - The RESNET model being pretrained with a very deep architecture displays a strong increase in the accuracy of the model and can be seen to have a very good performance on the training data
+            - Similar to RESNET, the CNN model also performs very well on the training data and has a very high accuracy.
+            - The MLP model with only linear layers and the least number of parameters is not able to perform as good as the CNN network.
+            - The ANN model does not seem to perform very well on the emotion's training data, which is apparent by its low accuracy. Our ANN model will need more data and longer training times to have a better accuracy.
 
             -----
             """

@@ -110,8 +110,12 @@ def app():
         """
         -----
         
-        - RESNET has a low test accuracy.
-        - CNN, MLP, ANN have very similar test accuracies.
+        - The RESNET model clearly seems to overfit our dataset, since it has the least accuracy on the test dataset and very high accuracy on the training dataset. This can be attributed to -
+        - Small dataset size (We increased the number of images through augmentation)
+        - Very deep architecture of the RESNET. For the emotion classification task having 5 classes this may be too deep.
+        - The CNN Model performs the best on our dataset both in the training and the testing phase. A shallow network with fewer layers, batch normalization after each convolution operation and using the dropout technique ensured a better result for the model as compared to the others.
+        - The MLP and the ANN model perform well on the test set with both the model's having a similar performance.
+        - The ANN model has similar training and test accuracies and it would seem that it has not overfit our training data.
     
         -----
         """

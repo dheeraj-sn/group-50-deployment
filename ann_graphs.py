@@ -44,6 +44,12 @@ def app():
         - ANN training and test loss plots are presented here. Hover on them to get the loss for each epoch.
         - ANN training and test accuracy plots are presented here. Hover on them to get the accuracy for each epoch.
         - Choose options from the top right of each plot to get more information
+        - The training loss of our model consistently decrease as the training progress. We noticed that the loss converges at around 500 epochs so we limited our training till this point.
+        - The training accuracy also consistently increases and reaches above 65%. This means the model has learned the training data well.
+        - The loss plot for the test data is also continuously decreasing and converges.
+        - Test accuracy reaches above 62% and stabilizes.
+        - Among all our model's, ANN has the most similarity between the training and test loss and the training and test accuracies. Thus this means that among all, ANN one is one which overfits the training data the least. 
+        - Accuracy measures whether the model is making right predictions. Loss measure how confident the model is about the predictions.Since the loss is decreasing and accuracy is increasing in the case of ANN, this means that the model is making good predictions and is also sure about the predictions it is making. 
         -----
         """
         )

@@ -44,6 +44,9 @@ def app():
         - RESNET training and test loss plots are presented here. Hover on them to get the loss for each epoch.
         - RESNET training and test accuracy plots are presented here. Hover on them to get the accuracy for each epoch.
         - Choose options from the top right of each plot to get more information
+        - The training loss of our model consistently decrease as the training progress. We noticed that the loss converges at around 50 epochs itself. 
+        - The training accuracy also consistently increases and reaches near 100%. This means the model has learned the training data too well.
+        - The loss plot for the test data seems to be increaseing. Also the variability of the test loss plot is very high across epochs. Unlike MLP and CNN, even though the loss for the test data is increasing, the accuracy on the test data is more or less stable around 32-35%. Generally the test loss and test accuracy should have an inverse relationship, i.e. with increasing test accuracy, the test loss should decrease.
         -----
         """
         )

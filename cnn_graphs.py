@@ -46,6 +46,10 @@ def app():
         - CNN training and test loss plots are presented here. Hover on them to get the loss for each epoch.
         - CNN training and test accuracy plots are presented here. Hover on them to get the accuracy for each epoch.
         - Choose options from the top right of each plot to get more information
+        - The training loss of our model consistently decrease as the training progress. We noticed that the loss converges at around 50 epochs itself. 
+        - The training accuracy also consistently increases and reaches near 100%. This means the model has learned the training data very well.
+        - The loss plot for the test data is decreasing at first but increases hereafter. Also the variability of the test loss plot is very high across epochs. Just like MLP, even though the loss for the test data is increasing, the accuracy on the test data is also increasing and later it converges. Generally the test loss and test accuracy should have an inverse relationship, i.e. with increasing test accuracy, the test loss should decrease. But here both are increasing. 
+        - Accuracy measures whether the model is making right predictions. Loss measure how confident the model is about the predictions.Since the loss and accuracy do not have have an inverse relationship in our case, this means that the model is making good predictions but it is less sure about the predictions it is making. 
         -----
         """
         )
